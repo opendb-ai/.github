@@ -1,68 +1,79 @@
 <p align="center">
-  <img src="https://nexmind-ai.io/logomark.svg" alt="NexMind-AI" width="64" />
+  <a href="https://github.com/opendb-ai/openDB">
+    <img src="https://raw.githubusercontent.com/opendb-ai/official-web/main/assets/opendb-icon.svg" alt="OpenDB" width="72" />
+  </a>
 </p>
 
-<h1 align="center">NexMind-AI</h1>
+<h1 align="center">OpenDB</h1>
 
 <p align="center">
-  Enterprise AI infrastructure for context systems, governed execution, and production-ready deployment.
+  <strong>The local database for AI agents.</strong><br/>
+  Read any file. Search every workspace. Remember long-term context.
 </p>
 
 <p align="center">
-  <a href="https://nexmind-ai.io/">Website</a>
+  <a href="https://github.com/opendb-ai/openDB">OpenDB</a>
   ·
-  <a href="https://nexmind-ai.io/products/">Products</a>
+  <a href="https://github.com/opendb-ai/official-web">Website</a>
   ·
-  <a href="mailto:business@nexmind-ai.io">Request a Demo</a>
+  <a href="https://github.com/opendb-ai/openDB/blob/main/docs/agent-protocol.md">Agent protocol</a>
+  ·
+  <a href="https://pypi.org/project/open-db/">PyPI</a>
 </p>
 
-## AI Infrastructure for the Enterprise Era
+---
 
-NexMind-AI builds the context, memory, execution, and control layer for companies deploying AI into real operations. Our infrastructure helps enterprise AI teams connect internal knowledge, coordinate agent workflows, govern sensitive actions, and monitor production behavior with the precision and traceability required for real-world systems.
+## Three Lines To Give Your Agent Memory
 
-## What We Build
+```bash
+pip install open-db[cli]
+opendb index ./my_workspace
+opendb serve-mcp
+```
 
-### AI-Native Database
+OpenDB gives any MCP-compatible agent a private, local database for files, search, and memory. It can read PDFs, Word documents, spreadsheets, presentations, code, text, and images; search across workspaces; store and recall durable memories; and switch projects at runtime.
 
-A purpose-built data layer for semantic retrieval, metadata-aware filtering, persistent session memory, and permission-aware access to internal knowledge assets.
+## Why It Exists
 
-- Hybrid retrieval across vectors, metadata, and structured records
-- Persistent session memory and operational state
-- Permission-aware access for enterprise knowledge systems
+Agents waste too much context and time writing one-off parsing scripts, scanning entire folders, and re-learning facts from previous sessions. OpenDB makes the simple path fast:
 
-### Agent Runtime
+- **Local-first**: SQLite by default, Postgres when shared access matters.
+- **Zero embeddings required**: SQLite FTS5 and Postgres `tsvector` before vector infrastructure.
+- **MCP native**: twelve tools for read, search, glob, memory, and workspace switching.
+- **Long-term memory**: semantic facts, dated episodes, reusable procedures, pinned context, and recency-aware recall.
+- **File-native**: structured output for pages, rows, slides, code lines, and document chunks.
 
-Runtime infrastructure for task routing, tool orchestration, approval chains, and coordinated execution across enterprise systems.
+## Benchmark Signals
 
-- Task routing across internal systems and workflow checkpoints
-- Approval chains before sensitive actions are committed
-- Trace logs for model, tool, and execution behavior
+| Metric | OpenDB |
+| --- | ---: |
+| LongMemEval_S R@5 | **98.5%** |
+| LongMemEval_S R@10 | **99.1%** |
+| Median memory recall | **3.0 ms** |
+| Token savings vs command parsing | **55-73%** |
+| Embedding calls for retrieval | **0** |
 
-### Workflow Engine
+Full methodology lives in the [benchmark report](https://github.com/opendb-ai/openDB/blob/main/benchmark/REPORT.md).
 
-Multi-step orchestration for complex enterprise operations, including conditional logic, human review gates, scheduled jobs, and event-driven triggers.
+## Built For Agent Workflows
 
-- DAG-based pipeline orchestration with branching logic
-- Human-in-the-loop approval and review gates
-- Cron-based scheduling and event-driven triggers
+OpenDB is designed around a simple protocol:
 
-### Monitoring and Audit
+1. Check local files and memories before external search.
+2. Read the smallest useful page, row, slide, or line range.
+3. Store durable memories carefully, with provenance and type.
+4. Keep the runtime boring: deterministic indexing, timestamps, FTS, and small schemas.
 
-Observability for every AI action, from model behavior to tool execution, with dashboards and audit trails designed for production operations.
+Start with [AGENTS.md](https://github.com/opendb-ai/openDB/blob/main/AGENTS.md) or the fuller [agent protocol](https://github.com/opendb-ai/openDB/blob/main/docs/agent-protocol.md).
 
-- End-to-end trace logging for agent actions
-- Performance dashboards for latency and cost metrics
-- Compliance-ready audit exports for regulatory review
+## Repositories
 
-## Built For
+| Repository | Description |
+| --- | --- |
+| [openDB](https://github.com/opendb-ai/openDB) | Core database, MCP server, CLI, parsers, memory service, and benchmarks. |
+| [official-web](https://github.com/opendb-ai/official-web) | Static official website for OpenDB. |
+| [.github](https://github.com/opendb-ai/.github) | Organization profile and shared GitHub metadata. |
 
-NexMind-AI is designed for enterprise teams that need AI systems to be accurate, controlled, observable, and ready for production deployment.
+## Design Bias
 
-## 中文简介
-
-NexMind-AI 专注于企业级 AI 基础设施，构建面向真实业务场景的上下文、记忆、执行与控制层。我们帮助企业 AI 团队连接内部知识资产，编排智能体工作流，管理敏感操作审批，并通过可追踪的日志、监控与审计能力，让 AI 系统具备生产环境所需的精度、可控性与稳定性。
-
-## Contact
-
-- Business: [business@nexmind-ai.io](mailto:business@nexmind-ai.io)
-- General: [hello@nexmind-ai.io](mailto:hello@nexmind-ai.io)
+OpenDB stays useful without an embedding API. Prefer deterministic indexing, full-text search, timestamps, provenance, and small schemas before adding new infrastructure.
