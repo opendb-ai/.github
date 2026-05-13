@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/opendb-ai/openDB">
-    <img src="https://raw.githubusercontent.com/opendb-ai/official-web/main/assets/opendb-icon.svg" alt="OpenDB" width="72" />
+    <img src="./assets/opendb-icon.png" alt="OpenDB" width="72" />
   </a>
 </p>
 
